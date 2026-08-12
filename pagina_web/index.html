@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AntiProcrastinación - Bloqueo de Enfoque y Autodisciplina para Android e iOS</title>
+    <meta name="description" content="Recupera el control de tu tiempo con AntiProcrastinación. Aplicación con bloqueo impenetrable de 80ms, retos de escritura consciente de 150 palabras y treguas matemáticas temporales.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Background Glow Effects -->
+    <div class="glow-bg glow-1"></div>
+    <div class="glow-bg glow-2"></div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="images/app_logo.jpg" alt="AntiProcrastinación Logo" class="logo-img">
+                <span>AntiProcrastinación</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#caracteristicas">Características</a>
+                <a href="#demostracion">Demo Interactivo</a>
+                <button class="theme-toggle-btn" id="theme-toggle-btn" title="Cambiar Modo Claro/Oscuro">
+                    <i class="fa-solid fa-moon" id="theme-icon"></i>
+                </button>
+                <a href="#descargar" class="btn-nav">Descargar App</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-text">
+                <div class="badge">
+                    <i class="fa-solid fa-shield-halved"></i> Seguridad Anti-Bloqueo Impenetrable
+                </div>
+                <h1 id="main-heading">Recupera el Control de Tu Tiempo y Domina Tu Enfoque</h1>
+                <p class="hero-subtitle">
+                    Una aplicación diseñada para la autodisciplina real. Sin atajos sencillos: incluye retos de escritura consciente de 150-200 palabras, desafíos matemáticos de tregua y protección continua para Android e iPhone.
+                </p>
+                <div class="hero-ctas">
+                    <a href="downloads/extension_chrome.zip" class="btn btn-chrome-dl" download="extension_chrome.zip" id="download-chrome-btn">
+                        <i class="fa-brands fa-chrome"></i>
+                        <div>
+                            <span class="btn-small">Descargar para PC</span>
+                            <span class="btn-large">Extensión Chrome (.ZIP)</span>
+                        </div>
+                    </a>
+                    <a href="downloads/AntiProcrastinacion.apk" class="btn btn-primary" download="AntiProcrastinacion.apk" id="download-android-btn">
+                        <i class="fa-brands fa-android"></i>
+                        <div>
+                            <span class="btn-small">Descargar para</span>
+                            <span class="btn-large">Android (APK)</span>
+                        </div>
+                    </a>
+                    <button class="btn btn-secondary" id="btn-open-ios-modal">
+                        <i class="fa-brands fa-apple"></i>
+                        <div>
+                            <span class="btn-small">Descargar para</span>
+                            <span class="btn-large">iPhone (Guía .IPA)</span>
+                        </div>
+                    </button>
+                </div>
+                <div class="platform-support">
+                    <span><i class="fa-solid fa-check-circle"></i> TECNO, Samsung, Xiaomi, Motorola</span>
+                    <span><i class="fa-solid fa-check-circle"></i> Compatible con iOS 15.0+</span>
+                </div>
+            </div>
+
+            <!-- Smartphone Interactive Preview Frame -->
+            <div class="hero-phone-frame">
+                <div class="phone-mockup">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="app-header">
+                            <img src="images/app_logo.jpg" alt="Logo App" class="phone-app-logo">
+                            <h3 id="demo-app-title">antiprocrastinación</h3>
+                            <span class="status-pill" id="demo-status">MODO LIBRE</span>
+                        </div>
+
+                        <!-- Interactive Phone App Screen -->
+                        <div class="app-body" id="app-body-screen">
+                            <div class="timer-display" id="timer-display-box">
+                                <span class="timer-digits" id="timer-text">10:00</span>
+                                <span class="timer-label">Tiempo de Enfoque Restante</span>
+                            </div>
+
+                            <div class="demo-controls" id="demo-setup-controls">
+                                <label>Selecciona tiempo de enfoque:</label>
+                                <div class="timer-adjuster">
+                                    <button class="btn-adjust" id="btn-minus">-</button>
+                                    <span id="target-min-label">10 min</span>
+                                    <button class="btn-adjust" id="btn-plus">+</button>
+                                </div>
+                                <button class="btn-app-main" id="btn-start-focus">
+                                    <i class="fa-solid fa-play"></i> Iniciar Enfoque
+                                </button>
+                            </div>
+
+                            <div class="demo-locked-controls hidden" id="demo-locked-controls">
+                                <button class="btn-app-outline" id="btn-finish-early">
+                                    <i class="fa-solid fa-circle-check"></i> Ya terminé mi actividad
+                                </button>
+                                <button class="btn-app-tregua" id="btn-tregua">
+                                    <i class="fa-solid fa-hourglass-half"></i> Tregua temporal (5 min)
+                                </button>
+                            </div>
+
+                            <div class="emergency-footer">
+                                <button class="btn-emergency"><i class="fa-solid fa-phone"></i> Teléfono</button>
+                                <button class="btn-emergency"><i class="fa-solid fa-message"></i> Mensajes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Zen Banner Showcase Section -->
+    <section class="promo-showcase">
+        <div class="promo-container">
+            <div class="promo-card">
+                <img src="images/promo_zen.jpg" alt="AntiProcrastinación Zen Banner Promo" class="promo-img">
+                <div class="promo-overlay-text">
+                    <span class="badge-zen"><i class="fa-solid fa-leaf"></i> Estilo Zen & Autodisciplina</span>
+                    <h2>Simplicidad Orgánica. Enfoque Impenetrable.</h2>
+                    <p>Diseñado con tonos crema relajantes (#FDFBF7), verde olivo orgánico y una interfaz concebida para despejar la mente y eliminar las distracciones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Cards Section -->
+    <section class="features" id="caracteristicas">
+        <div class="section-header">
+            <h2>Diseñado para Quienes Buscan Resultados Reales</h2>
+            <p>Descubre las funciones que hacen de AntiProcrastinación una herramienta impenetrable.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="card-icon icon-bolt">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h3>Monitoreo Continuo e Impenetrable</h3>
+                <p>Verificación hyper-responsiva sin retardos ni animaciones de ventana. Si intentas salir a la pantalla de inicio, la app reaparece de inmediato.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-icon icon-pen">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                </div>
+                <h3>Reto de Escritura de 150-200 Palabras</h3>
+                <p>Para desbloquear antes de tiempo, debes escribir un texto largo y reflexivo con signos de puntuación exactos. La pereza te hará elegir terminar tu tarea.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-icon icon-math">
+                    <i class="fa-solid fa-calculator"></i>
+                </div>
+                <h3>Treguas de 5 Minutos Controladas</h3>
+                <p>¿Necesitas revisar algo urgente? Resuelve un desafío matemático o una frase de enfoque para obtener 5 minutos exactos de acceso temporal.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-icon icon-shield">
+                    <i class="fa-solid fa-shield-virus"></i>
+                </div>
+                <h3>Botones de Emergencia Siempre Activos</h3>
+                <p>Llamadas de voz y mensajes de texto permanecen accesibles en todo momento para que nunca quedes incomunicado en una urgencia real.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-icon icon-bolt">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <h3>Sincronización Cloud con Código Único (PIN)</h3>
+                <p>Vincula tu teléfono y tu PC con Firebase Realtime Database. Genera tu código único de dispositivo (ej. ZEN-8492) o usa tu correo para sincronizar el bloqueo entre Android y Chrome.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-icon icon-pen">
+                    <i class="fa-brands fa-chrome"></i>
+                </div>
+                <h3>Extensión de Chrome con Bloqueo de Reels & +18</h3>
+                <p>Filtra de forma impenetrable Reels de Instagram, videos directos, accesos por subrutas y sitios de adultos con el interruptor de Control Parental (+18).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Simulator Sandbox -->
+    <section class="simulator-section" id="demostracion">
+        <div class="section-header">
+            <h2>Prueba el Reto de Escritura de 150 Palabras</h2>
+            <p>Experimenta cómo funciona el sistema de verificación de finalización anticipada en tiempo real.</p>
+        </div>
+
+        <div class="challenge-sandbox">
+            <div class="phrase-box">
+                <span class="badge-phrase">Texto de Desafío Requerido:</span>
+                <p id="sample-phrase" oncopy="return false;" oncontextmenu="return false;">Al tomar la firme decisión de dar por concluida mi actividad antes de tiempo, reconozco plenamente que la verdadera autodisciplina no consiste en buscar atajos hacia la comodidad, sino en honrar cada promesa que me hago a mí mismo. Reconozco que mi mente intentará justificar la pausa y buscará refugio en la gratificación inmediata de una pantalla, pero mi compromiso con el éxito real y con mi propio crecimiento personal se encuentra por encima de cualquier impulso efímero.</p>
+            </div>
+
+            <div class="typing-area">
+                <textarea id="typing-input" placeholder="Comienza a escribir el texto aquí exactamente (Pegado desactivado por seguridad)..." onpaste="return false;" oncopy="return false;" oncontextmenu="return false;"></textarea>
+                <div class="progress-bar-container">
+                    <div class="progress-fill" id="typing-progress"></div>
+                </div>
+                <div class="typing-stats">
+                    <span id="match-status"><i class="fa-solid fa-keyboard"></i> Esperando escritura...</span>
+                    <span id="word-count">0 / 72 palabras</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section CTA -->
+    <section class="download-cta" id="descargar">
+        <div class="cta-card">
+            <h2>Empieza a Proteger Tu Tiempo Hoy Mismo</h2>
+            <p>Descarga la app oficial para tu teléfono Android o iPhone de forma 100% gratuita.</p>
+            <div class="cta-buttons">
+                <a href="downloads/extension_chrome.zip" class="btn btn-chrome-dl" download="extension_chrome.zip">
+                    <i class="fa-brands fa-chrome"></i> Extensión de Chrome (.ZIP)
+                </a>
+                <a href="downloads/AntiProcrastinacion.apk" class="btn btn-primary" download="AntiProcrastinacion.apk">
+                    <i class="fa-brands fa-android"></i> Descargar Android (APK)
+                </a>
+                <button class="btn btn-secondary" id="btn-open-ios-modal-2">
+                    <i class="fa-brands fa-apple"></i> Instalación para iPhone (.IPA)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p>© 2026 AntiProcrastinación. Todos los derechos reservados. Diseñado para la máxima autodisciplina.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Guía de Instalación para iPhone -->
+    <div class="modal-overlay hidden" id="ios-guide-modal">
+        <div class="modal-card ios-modal-card">
+            <div class="ios-modal-header">
+                <i class="fa-brands fa-apple"></i>
+                <div>
+                    <h4>Instalación en iPhone (iOS)</h4>
+                    <span class="sub-badge">Guía Rápida</span>
+                </div>
+            </div>
+            <p class="ios-modal-intro">En iOS los archivos <code>.IPA</code> requieren instalación guiada. Tienes 2 opciones sencillas:</p>
+            
+            <div class="ios-method-box">
+                <div class="method-title">
+                    <span class="method-num">1</span>
+                    <strong>Sin Computadora (Directo desde Safari):</strong>
+                </div>
+                <p>Entra desde Safari en tu iPhone a <a href="https://usescarlet.com" target="_blank" rel="noopener">usescarlet.com</a>, instala Scarlet, y abre el archivo <code>.IPA</code> descargado desde la app.</p>
+            </div>
+
+            <div class="ios-method-box">
+                <div class="method-title">
+                    <span class="method-num">2</span>
+                    <strong>Desde tu PC con Sideloadly:</strong>
+                </div>
+                <p>Descarga <a href="https://sideloadly.io" target="_blank" rel="noopener">Sideloadly.io</a> en tu PC, conecta tu iPhone por USB, arrastra el archivo <code>.IPA</code> e ingresa tu Apple ID.</p>
+            </div>
+
+            <div class="ios-modal-download-area">
+                <a href="downloads/AntiProcrastinacion.ipa" class="btn btn-primary btn-full-width" download="AntiProcrastinacion.ipa">
+                    <i class="fa-solid fa-download"></i> Descargar Archivo AntiProcrastinacion.ipa
+                </a>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" id="btn-close-ios-modal">Cerrar Ventana</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Challenge Modal for Demo Phone -->
+    <div class="modal-overlay hidden" id="demo-modal">
+        <div class="modal-card">
+            <h4 id="modal-title">Desafío de Verificación</h4>
+            <p id="modal-desc">Escribe el texto requerido para desbloquear la aplicación:</p>
+            <div class="modal-text-box" id="modal-text-box" oncopy="return false;" oncontextmenu="return false;"></div>
+            <textarea id="modal-input" placeholder="Escribe aquí (Pegado desactivado por seguridad)..." onpaste="return false;" oncopy="return false;" oncontextmenu="return false;"></textarea>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="btn-close-modal">Cancelar</button>
+                <button class="btn-confirm" id="btn-verify-modal">Verificar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

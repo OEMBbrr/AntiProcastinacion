@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>AntiProcrastinación</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-left">
+            <img src="app_logo.jpg" alt="Logo" class="logo-img">
+            <h2>AntiProcrastinación</h2>
+        </div>
+        <div class="header-right">
+            <span class="status-pill" id="status-pill">MODO LIBRE</span>
+            <span class="conn-dot" id="conn-dot" title="Estado de conexión con tu teléfono"></span>
+        </div>
+    </div>
+
+    <!-- V20.3: Menú de Perfil y Ajustes (Mi Cuenta / Ajustes) como las apps -->
+    <div class="account-box profile-menu-wrap">
+        <button class="profile-trigger" id="btn-profile-menu">
+            <span class="profile-avatar"><img src="emojis/account_icon.svg" alt="Perfil" class="menu-icon-white"></span>
+            <span class="profile-text" id="profile-title">Mi Cuenta</span>
+            <span class="profile-chevron">▾</span>
+        </button>
+        <div class="profile-dropdown hidden" id="profile-dropdown">
+            <button class="dropdown-item" data-open-modal="account-modal"><img src="emojis/account_icon.svg" alt="Mi Cuenta" class="menu-icon"> Mi Cuenta</button>
+            <button class="dropdown-item" data-open-modal="settings-modal"><img src="emojis/settings_icon.svg" alt="Ajustes" class="menu-icon"> Ajustes</button>
+        </div>
+    </div>
+
+    <!-- Notes Panel Sincronizado (Google Keep Style) -->
+    <div class="keep-notes-box hidden" id="notes-box">
+        <div class="keep-header">
+            <span class="keep-title">Apuntes</span>
+            <button class="keep-close" id="btn-close-notes">✕</button>
+        </div>
+        
+        <div class="keep-input-container">
+            <textarea id="note-input" placeholder="Añade una nota..." rows="1"></textarea>
+            <div class="keep-input-actions">
+                <span class="notes-sync-status hidden" id="notes-sync-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Guardado local</span>
+                <button id="btn-add-note">Guardar</button>
+            </div>
+        </div>
+        
+        <div class="keep-notes-grid" id="notes-list">
+            <!-- Dynamic notes injected here -->
+        </div>
+    </div>
+
+    <div class="timer-box">
+        <span class="timer-digits" id="timer-text">00:10:00</span>
+        <span class="timer-label">Tiempo de Enfoque Restante</span>
+        <!-- V24: banner de descanso DESCANSOS (tregua libre) -->
+        <div class="hidden pomodoro-rest-banner" id="pomodoro-rest-banner">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> DESCANSO - Tregua libre activa
+        </div>
+
+        <!-- Stepper de Horas y Minutos idéntico a Android -->
+        <div class="time-picker-zen" id="setup-controls">
+            <div class="picker-col">
+                <span class="picker-title">HORAS</span>
+                <div class="stepper-row">
+                    <button class="btn-step" id="btn-hours-minus">-</button>
+                    <span class="step-num" id="hours-text">00</span>
+                    <button class="btn-step" id="btn-hours-plus">+</button>
+                </div>
+            </div>
+            <span class="colon-sep">:</span>
+            <div class="picker-col">
+                <span class="picker-title">MINUTOS</span>
+                <div class="stepper-row">
+                    <button class="btn-step" id="btn-mins-minus">-</button>
+                    <span class="step-num" id="mins-text">10</span>
+                    <button class="btn-step" id="btn-mins-plus">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- V24: Configuración DESCANSOS en la pantalla de inicio del enfoque -->
+        <div class="hidden" id="pomodoro-setup">
+            <div class="pomodoro-setup-header" id="pomodoro-setup-toggle">
+                <span class="pomodoro-setup-title"><img src="emojis/timer_icon.svg" alt="" class="menu-icon"> DESCANSOS</span>
+                <span class="pomodoro-setup-arrow" id="pomodoro-setup-arrow">▾</span>
+            </div>
+            <div id="pomodoro-setup-body">
+                <div class="pomodoro-hint" id="pomodoro-setup-warning"></div>
+                <div class="hidden" id="pomodoro-setup-config">
+                    <div class="setting-row">
+                        <span class="setting-label">Descansos: <b id="pomodoro-restcount-text">1</b></span>
+                        <div class="pomodoro-stepper">
+                            <button class="btn-step" id="pomodoro-restcount-minus">-</button>
+                            <button class="btn-step" id="pomodoro-restcount-plus">+</button>
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <span class="setting-label">Descanso (máx <span id="pomodoro-rest-max">30</span>): <b id="pomodoro-rest-setup-text">5 min</b></span>
+                        <div class="pomodoro-stepper">
+                            <button class="btn-step" id="pomodoro-rest-setup-minus">-</button>
+                            <button class="btn-step" id="pomodoro-rest-setup-plus">+</button>
+                        </div>
+                    </div>
+                    <div class="pomodoro-preview" id="pomodoro-setup-preview"></div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-main" id="btn-start">Iniciar Enfoque</button>
+
+        <div class="hidden" id="locked-controls">
+            <button class="btn-outline" id="btn-finish-early">Ya terminé mi actividad</button>
+            <button class="btn-coral" id="btn-tregua">Tregua temporal (5 min)</button>
+        </div>
+    </div>
+
+    <div class="sites-box">
+        <div class="parental-toggle">
+            <span class="parental-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> Control Parental (+18)</span>
+            <label class="zen-switch">
+                <input type="checkbox" id="parental-switch">
+                <span class="zen-slider"></span>
+            </label>
+        </div>
+        <div class="box-header">
+            <h4>SITIOS WEB BLOQUEADOS:</h4>
+        </div>
+        <div class="add-site-form">
+            <input type="text" id="new-site-input" placeholder="ej. tiktok.com o instagram.com">
+            <button id="btn-add-site">+ Agregar</button>
+        </div>
+        <div class="site-tags" id="site-tags-container"></div>
+    </div>
+
+    <!-- Modal Reto de Escritura (Con bloqueo anti copiar y pegar) -->
+    <div class="modal-overlay hidden" id="phrase-modal">
+        <div class="modal-card">
+            <h4>Verificación de Finalización (150 palabras)</h4>
+            <p>Escribe el texto exacto para finalizar el enfoque antes de tiempo (<strong>Pegado desactivado por seguridad</strong>):</p>
+            <div class="modal-text" id="phrase-target-text" draggable="false" onselectstart="return false;" ondragstart="return false;" oncopy="return false;" oncut="return false;" oncontextmenu="return false;"></div>
+            <textarea id="phrase-input" placeholder="Comienza a escribir aquí..." onpaste="return false;" oncopy="return false;" oncontextmenu="return false;"></textarea>
+            <div class="modal-actions">
+                <button class="btn-sm btn-cancel" id="btn-close-phrase">Cancelar</button>
+                <button class="btn-sm btn-confirm" id="btn-verify-phrase">Desbloquear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tregua Matemática -->
+    <div class="modal-overlay hidden" id="math-modal">
+        <div class="modal-card">
+            <h4>Desafío de Tregua (5 Minutos)</h4>
+            <p>Resuelve la siguiente operación matemática para obtener 5 minutos de acceso:</p>
+            <div class="modal-text" id="math-problem-text"></div>
+            <!-- V24 (Propuesta 2): estado de tregua verificada por el 2º dispositivo -->
+            <div class="tregua-pending hidden" id="tregua-pending"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> Confirmación enviada a tu teléfono. Esperando aprobación...</div>
+            <div id="math-challenge">
+                <textarea id="math-input" placeholder="Respuesta numérica..."></textarea>
+                <div class="modal-actions">
+                    <button class="btn-sm btn-cancel" id="btn-close-math">Cancelar</button>
+                    <button class="btn-sm btn-confirm" id="btn-verify-math">Activar Tregua</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- V20.3: Modal Mi Cuenta (iniciar sesión con Google / notas) -->
+    <div class="modal-overlay hidden" id="account-modal">
+        <div class="modal-card">
+            <h4><img src="emojis/account_icon.svg" alt="Mi Cuenta" class="menu-icon"> Mi Cuenta</h4>
+            <button class="btn-google-login" id="btn-google-login">
+                <span class="google-icon">G</span> Iniciar Sesión con Google
+            </button>
+            <button class="btn-notes-toggle" id="btn-notes-toggle" style="width:100%; margin-top:8px; justify-content:center;">
+                <img src="emojis/memo_3d.png" style="width:16px;height:16px;vertical-align:middle;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.15));"> Mis Notas
+            </button>
+            <div class="modal-actions">
+                <button class="btn-sm btn-cancel" data-close-modal="account-modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- V20.3: Modal Ajustes (Modo Oscuro + Bloqueo Cruzado) -->
+    <div class="modal-overlay hidden" id="settings-modal">
+        <div class="modal-card">
+            <h4><img src="emojis/settings_icon.svg" alt="Ajustes" class="menu-icon"> Ajustes</h4>
+            <div class="setting-row">
+                <span class="setting-label"><img src="emojis/dark_mode_icon.svg" alt="" class="menu-icon"> Modo Oscuro</span>
+                <label class="zen-switch setting-switch">
+                    <input type="checkbox" id="dark-mode-switch">
+                    <span class="zen-slider"></span>
+                </label>
+            </div>
+            <div class="setting-row">
+                <span class="setting-label"><img src="emojis/sync_icon.svg" alt="" class="menu-icon"> Bloqueo Cruzado</span>
+                <label class="zen-switch setting-switch">
+                    <input type="checkbox" id="cross-lock-switch">
+                    <span class="zen-slider"></span>
+                </label>
+            </div>
+            <!-- V24 (Propuesta 1): Descansos (se configura en el inicio del enfoque) -->
+            <div class="setting-row">
+                <span class="setting-label"><img src="emojis/timer_icon.svg" alt="" class="menu-icon"> Descansos</span>
+                <label class="zen-switch setting-switch">
+                    <input type="checkbox" id="pomodoro-switch">
+                    <span class="zen-slider"></span>
+                </label>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-sm btn-cancel" data-close-modal="settings-modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- V24.1: Modal de verificación 2FA del Bloqueo Cruzado (el teléfono genera el código) -->
+    <div class="modal-overlay hidden" id="auth-code-modal">
+        <div class="modal-card">
+            <h4><img src="emojis/sync_icon.svg" alt="" class="menu-icon"> Confirmar Bloqueo Cruzado</h4>
+            <p>Se ha solicitado un código de verificación a tu teléfono. El teléfono lo generará y te llegará por notificación. Escríbelo aquí para continuar:</p>
+            <div class="auth-pending hidden" id="auth-pending"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> Generando código en tu teléfono... Revisa la notificación de AntiProcrastinación.</div>
+            <input type="text" id="auth-code-input" maxlength="4" inputmode="numeric" placeholder="0000">
+            <div class="auth-error hidden" id="auth-error">Código incorrecto o expirado. Intenta de nuevo.</div>
+            <div class="modal-actions">
+                <button class="btn-sm btn-cancel" id="btn-cancel-auth">Cancelar</button>
+                <button class="btn-sm btn-confirm" id="btn-confirm-auth">Verificar y Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
